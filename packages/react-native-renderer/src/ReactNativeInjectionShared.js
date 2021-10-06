@@ -7,15 +7,6 @@
  * @flow
  */
 
-/**
- * Make sure essential globals are available and are patched correctly. Please don't remove this
- * line. Bundles created by react-packager `require` it before executing any application code. This
- * ensures it exists in the dependency graph and can be `require`d.
- * TODO: require this in packager, not in React #10932517
- */
-// Module provided by RN:
-import 'react-native/Libraries/ReactPrivate/ReactNativePrivateInitializeCore';
-
 import ResponderEventPlugin from './legacy-events/ResponderEventPlugin';
 import {
   injectEventPluginOrder,
