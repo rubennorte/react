@@ -41,10 +41,14 @@ import type {TransitionStatus} from './ReactFiberConfig';
 import type {Hook} from './ReactFiberHooks';
 
 import {
-  markComponentRenderStarted,
-  markComponentRenderStopped,
+  markComponentRenderStarted as markComponentRenderStartedInDevTools,
+  markComponentRenderStopped as markComponentRenderStoppedInDevTools,
   setIsStrictModeForDevtools,
 } from './ReactFiberDevToolsHook';
+import {
+  markComponentRenderStarted as markComponentRenderStartedInTracingHooks,
+  markComponentRenderStopped as markComponentRenderStoppedInTracingHooks,
+} from './ReactFiberTracingHook';
 import {
   FunctionComponent,
   ClassComponent,
@@ -103,6 +107,7 @@ import {
   enableLazyContextPropagation,
   enableSchedulingProfiler,
   enableTransitionTracing,
+  enableTracingHooks,
   enableLegacyHidden,
   enableCPUSuspense,
   enableAsyncActions,
@@ -438,7 +443,13 @@ function updateForwardRef(
   let hasId;
   prepareToReadContext(workInProgress, renderLanes);
   if (enableSchedulingProfiler) {
-    markComponentRenderStarted(workInProgress);
+    markComponentRenderStartedInDevTools(workInProgress);
+  }
+  if (enableTracingHooks) {
+    markComponentRenderStartedInTracingHooks(
+      getWorkInProgressRoot(),
+      workInProgress,
+    );
   }
   if (__DEV__) {
     nextChildren = renderWithHooks(
@@ -462,7 +473,10 @@ function updateForwardRef(
     hasId = checkDidRenderIdHook();
   }
   if (enableSchedulingProfiler) {
-    markComponentRenderStopped();
+    markComponentRenderStoppedInDevTools();
+  }
+  if (enableTracingHooks) {
+    markComponentRenderStoppedInTracingHooks(getWorkInProgressRoot());
   }
 
   if (current !== null && !didReceiveUpdate) {
@@ -1168,7 +1182,13 @@ function updateFunctionComponent(
   let hasId;
   prepareToReadContext(workInProgress, renderLanes);
   if (enableSchedulingProfiler) {
-    markComponentRenderStarted(workInProgress);
+    markComponentRenderStartedInDevTools(workInProgress);
+  }
+  if (enableTracingHooks) {
+    markComponentRenderStartedInTracingHooks(
+      getWorkInProgressRoot(),
+      workInProgress,
+    );
   }
   if (__DEV__) {
     nextChildren = renderWithHooks(
@@ -1192,7 +1212,10 @@ function updateFunctionComponent(
     hasId = checkDidRenderIdHook();
   }
   if (enableSchedulingProfiler) {
-    markComponentRenderStopped();
+    markComponentRenderStoppedInDevTools();
+  }
+  if (enableTracingHooks) {
+    markComponentRenderStoppedInTracingHooks(getWorkInProgressRoot());
   }
 
   if (current !== null && !didReceiveUpdate) {
@@ -1224,7 +1247,13 @@ export function replayFunctionComponent(
 
   prepareToReadContext(workInProgress, renderLanes);
   if (enableSchedulingProfiler) {
-    markComponentRenderStarted(workInProgress);
+    markComponentRenderStartedInDevTools(workInProgress);
+  }
+  if (enableTracingHooks) {
+    markComponentRenderStartedInTracingHooks(
+      getWorkInProgressRoot(),
+      workInProgress,
+    );
   }
   const nextChildren = replaySuspendedComponentWithHooks(
     current,
@@ -1235,7 +1264,10 @@ export function replayFunctionComponent(
   );
   const hasId = checkDidRenderIdHook();
   if (enableSchedulingProfiler) {
-    markComponentRenderStopped();
+    markComponentRenderStoppedInDevTools();
+  }
+  if (enableTracingHooks) {
+    markComponentRenderStoppedInTracingHooks(getWorkInProgressRoot());
   }
 
   if (current !== null && !didReceiveUpdate) {
@@ -1410,7 +1442,13 @@ function finishClassComponent(
     }
   } else {
     if (enableSchedulingProfiler) {
-      markComponentRenderStarted(workInProgress);
+      markComponentRenderStartedInDevTools(workInProgress);
+    }
+    if (enableTracingHooks) {
+      markComponentRenderStartedInTracingHooks(
+        getWorkInProgressRoot(),
+        workInProgress,
+      );
     }
     if (__DEV__) {
       nextChildren = callRenderInDEV(instance);
@@ -1429,7 +1467,10 @@ function finishClassComponent(
       nextChildren = instance.render();
     }
     if (enableSchedulingProfiler) {
-      markComponentRenderStopped();
+      markComponentRenderStoppedInDevTools();
+    }
+    if (enableTracingHooks) {
+      markComponentRenderStoppedInTracingHooks(getWorkInProgressRoot());
     }
   }
 
@@ -3450,7 +3491,13 @@ function updateContextConsumer(
   prepareToReadContext(workInProgress, renderLanes);
   const newValue = readContext(context);
   if (enableSchedulingProfiler) {
-    markComponentRenderStarted(workInProgress);
+    markComponentRenderStartedInDevTools(workInProgress);
+  }
+  if (enableTracingHooks) {
+    markComponentRenderStartedInTracingHooks(
+      getWorkInProgressRoot(),
+      workInProgress,
+    );
   }
   let newChildren;
   if (__DEV__) {
@@ -3459,7 +3506,10 @@ function updateContextConsumer(
     newChildren = render(newValue);
   }
   if (enableSchedulingProfiler) {
-    markComponentRenderStopped();
+    markComponentRenderStoppedInDevTools();
+  }
+  if (enableTracingHooks) {
+    markComponentRenderStoppedInTracingHooks(getWorkInProgressRoot());
   }
 
   // React DevTools reads this flag.

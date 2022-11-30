@@ -512,6 +512,7 @@ function create(
     defaultOnCaughtError,
     defaultOnRecoverableError,
     null,
+    null,
   );
 
   if (root == null) {

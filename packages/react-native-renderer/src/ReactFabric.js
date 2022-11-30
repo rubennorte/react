@@ -140,6 +140,7 @@ function render(
       onCaughtError,
       onRecoverableError,
       null,
+      options?.tracingHooks != null ? options.tracingHooks : null,
     );
     roots.set(containerTag, root);
   }

@@ -39,6 +39,7 @@ export const transitionLaneExpirationMs = 5000;
 export const enableDebugTracing = __EXPERIMENTAL__;
 
 export const enableSchedulingProfiler = __VARIANT__;
+export const enableTracingHooks = false;
 
 export const enableInfiniteRenderLoopDetection = __VARIANT__;
 

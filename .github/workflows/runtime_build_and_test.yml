@@ -2,7 +2,7 @@ name: (Runtime) Build and Test
 
 on:
   push:
-    branches: [main]
+    branches: [rubennorte-programmatic-profiler]
   pull_request:
     paths-ignore:
       - compiler/**

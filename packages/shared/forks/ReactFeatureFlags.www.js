@@ -64,6 +64,8 @@ export const enableLazyContextPropagation = true;
 export const enableSchedulingProfiler: boolean =
   __PROFILE__ && dynamicFeatureFlags.enableSchedulingProfiler;
 
+export const enableTracingHooks = false;
+
 export const disableLegacyContext = __EXPERIMENTAL__;
 export const enableGetInspectorDataForInstanceInProduction = false;
 

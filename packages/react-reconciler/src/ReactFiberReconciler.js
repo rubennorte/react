@@ -12,6 +12,7 @@ import type {
   FiberRoot,
   SuspenseHydrationCallbacks,
   TransitionTracingCallbacks,
+  TracingHooks,
 } from './ReactInternalTypes';
 import type {RootTag} from './ReactRootTags';
 import type {
@@ -248,6 +249,7 @@ export function createContainer(
     errorInfo: {+componentStack?: ?string},
   ) => void,
   transitionCallbacks: null | TransitionTracingCallbacks,
+  tracingHooks: null | TracingHooks,
 ): OpaqueRoot {
   const hydrate = false;
   const initialChildren = null;
@@ -264,6 +266,7 @@ export function createContainer(
     onRecoverableError,
     transitionCallbacks,
     null,
+    tracingHooks,
   );
 }
 
@@ -295,6 +298,7 @@ export function createHydrationContainer(
   ) => void,
   transitionCallbacks: null | TransitionTracingCallbacks,
   formState: ReactFormState<any, any> | null,
+  tracingHooks: null | TracingHooks,
 ): OpaqueRoot {
   const hydrate = true;
   const root = createFiberRoot(
@@ -310,6 +314,7 @@ export function createHydrationContainer(
     onRecoverableError,
     transitionCallbacks,
     formState,
+    tracingHooks,
   );
 
   // TODO: Move this to FiberRoot constructor

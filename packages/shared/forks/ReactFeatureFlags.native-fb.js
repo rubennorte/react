@@ -27,6 +27,7 @@ export const {
   enableShallowPropDiffing,
   passChildrenWhenCloningPersistedNodes,
   enableLazyContextPropagation,
+  enableTracingHooks,
 } = dynamicFlags;
 
 // The rest of the flags are static for better dead code elimination.

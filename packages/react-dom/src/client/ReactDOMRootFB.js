@@ -239,6 +239,7 @@ function legacyCreateRootFromDOMContainer(
       // TODO(luna) Support hydration later
       null,
       null,
+      null,
     );
     container._reactRootContainer = root;
     markContainerAsRoot(root.current, container);
@@ -273,6 +274,7 @@ function legacyCreateRootFromDOMContainer(
       wwwOnCaughtError,
       noopOnRecoverableError,
       null, // transitionCallbacks
+      null, // tracingHooks
     );
     container._reactRootContainer = root;
     markContainerAsRoot(root.current, container);
